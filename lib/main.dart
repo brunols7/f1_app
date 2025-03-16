@@ -1,6 +1,6 @@
+import 'package:f1_app/drivers_page.dart';
 import 'package:flutter/material.dart';
 import 'team/team_card.dart';
-import 'team/team.dart';
 import 'team/team_data.dart';
 
 void main() {
@@ -28,7 +28,9 @@ class MainApp extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.info_outlined, color: Color(0xFFFA1F00), size: 24),
-              onPressed: ((){}),
+              onPressed: ((){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DriversPage(teamId: 2)));
+              }),
             )
           ],
         ),
@@ -52,6 +54,7 @@ class MainApp extends StatelessWidget {
                   itemBuilder: (context, index){
                     final team = teamData.teams[index];
                     return TeamCard(
+                      teamId: team.teamId,
                       teamName: team.teamName,
                       fullTeamName: team.fullTeamName,
                       teamLogo: team.teamLogo,
