@@ -4,6 +4,7 @@ import 'team/team_data.dart';
 import 'team/team.dart';
 import 'team/team_card_drivers.dart';
 import 'drivers/driver.dart';
+import 'drivers/drivers_data.dart';
 
 class DriversPage extends StatefulWidget {
 
@@ -16,6 +17,7 @@ class DriversPage extends StatefulWidget {
 
 class _DriversPageState extends State<DriversPage> {
   Team? selectedTeam;
+  List<Driver> filteredDrivers = [];
 
   @override
   void initState() {
@@ -30,6 +32,8 @@ class _DriversPageState extends State<DriversPage> {
         teamColor: Colors.grey,
       ),
     );
+
+    filteredDrivers = DriversData().drivers.where((driver) => driver.teamId == widget.teamId).toList();
   }
   
   @override
@@ -91,13 +95,16 @@ class _DriversPageState extends State<DriversPage> {
                 )
               ),
               SizedBox(height: 10),
-              Column(
-                children:[
-                  DriverCard(),
-                  SizedBox(height: 20),
-                  DriverCard(),
-                ]
-              )
+              Expanded(
+                child: ListView.separated(
+                  itemCount: filteredDrivers.length,
+                  itemBuilder: (context, index) {
+                    final driver = filteredDrivers[index];
+                    return DriverCard(driver: driver);  // Passa o driver para o DriverCard
+                  },
+                  separatorBuilder: (context, index) => SizedBox(height: 10),
+                ),
+              ),
             ],
           ),
         ),

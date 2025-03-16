@@ -1,15 +1,7 @@
-import 'package:f1_app/drivers_page.dart';
 import 'package:flutter/material.dart';
-import 'team/team_card.dart';
-import 'team/team_data.dart';
-import 'info_page.dart';
 
-void main() {
-  runApp(MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  final TeamData teamData = TeamData();
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +22,7 @@ class MainApp extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.info_outlined, color: Color(0xFFFA1F00), size: 24),
               onPressed: ((){
+                
               }),
             )
           ],
@@ -47,23 +40,6 @@ class MainApp extends StatelessWidget {
                 )
               ),
               SizedBox(height: 10),
-              Expanded(
-                child: ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: teamData.teams.length,
-                  itemBuilder: (context, index){
-                    final team = teamData.teams[index];
-                    return TeamCard(
-                      teamId: team.teamId,
-                      teamName: team.teamName,
-                      fullTeamName: team.fullTeamName,
-                      teamLogo: team.teamLogo,
-                      teamColor: team.teamColor
-                    );
-                  },
-                  separatorBuilder: (context, index) => SizedBox(height: 10)
-                )
-              )
             ],
           ),
         ),

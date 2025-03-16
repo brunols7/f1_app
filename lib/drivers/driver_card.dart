@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'driver.dart';
 
 class DriverCard extends StatefulWidget {
-  const DriverCard({super.key});
+  
+  DriverCard({required this.driver});
+
+  final Driver driver;
 
   @override
   State<DriverCard> createState() => _DriverCardState();
@@ -14,8 +18,15 @@ class _DriverCardState extends State<DriverCard> {
       width: double.infinity,
       height: 200,
       decoration: BoxDecoration(
-        color: Color(0xFF121212),
+        color: Color.fromARGB(255, 238, 241, 243),
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8, 
+            offset: Offset(0, 4), 
+          ),
+        ],
       ),
       child: Container(
         margin: EdgeInsets.all(10),
@@ -28,22 +39,22 @@ class _DriverCardState extends State<DriverCard> {
                 Container(
                   height: 44,
                   width: 2,
-                  color: Colors.green,
+                  color: widget.driver.teamColor,
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Gabriel', style: TextStyle(
-                        color: Colors.white,
+                    Text(widget.driver.firstName, style: TextStyle(
+                        color: Colors.black,
                         fontSize:14,
                         fontFamily: 'f1',
                         fontWeight: FontWeight.normal
                       ),
                     ),
-                    Text('Bortoleto', style: TextStyle(
-                        color: Colors.white,
-                        fontSize:14,
+                    Text(widget.driver.lastName, style: TextStyle(
+                        color: Colors.black,
+                        fontSize:18,
                         fontFamily: 'f1',
                         fontWeight: FontWeight.bold
                       ),
@@ -51,7 +62,13 @@ class _DriverCardState extends State<DriverCard> {
                   ],
                 ),
                 Spacer(),
-                Image.network('https://flagsapi.com/BR/flat/64.png', height: 40)
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 236, 239, 240),
+                    borderRadius: BorderRadius.circular(6)
+                  ),
+                  child: Padding(padding: EdgeInsets.all(1), child: Image.network('https://flagsapi.com/${widget.driver.country}/flat/64.png', height: 40)),
+                )
               ],
             ),
             SizedBox(height: 10),
@@ -60,15 +77,15 @@ class _DriverCardState extends State<DriverCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '5',
+                  '${widget.driver.driverNumber}',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 40,
                     fontFamily: 'f1',
                     fontWeight: FontWeight.bold
                   )
                 ),
-                Image.network('https://www.formulaonehistory.com/wp-content/uploads/2024/11/Gabriel-Bortoleto-F1-2024.webp', height: 120,)
+                Image.network('${widget.driver.driverImage}', height: 120,)
               ],
             )
           ],
