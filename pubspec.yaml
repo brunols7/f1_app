@@ -23,3 +23,10 @@ flutter:
     - assets/images/
     - assets/images/teams/
     - assets/images/teams/sauber.png
+  fonts:
+    - family: f1
+      fonts:
+        - asset: assets/fonts/f1-font.otf
+          weight: 400
+        - asset: assets/fonts/f1-font.otf
+          weight: 700
