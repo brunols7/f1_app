@@ -13,7 +13,13 @@ Este é um projeto simples para treinar minhas habilidades de desenvolvimento em
 - Exibição de uma lista de equipes de Fórmula 1, ordenadas conforme o campeonato de 2024, com seus logotipos, nomes e cores.
 - Cada equipe tem um cartão detalhado com informações sobre a equipe.
 - Uma interface simples e limpa, projetada para oferecer uma experiência tranquila ao usuário.
-- **Próximos passos**: O usuário poderá escolher uma equipe e visualizar os pilotos dessa equipe. Ao clicar em um piloto, será exibida uma tela com informações detalhadas sobre ele.
+
+## Próximos Passos
+
+- Permitir que o usuário clique em um piloto para visualizar uma tela com informações detalhadas.
+- Utilizar Firebase como banco de dados.
+- Adicionar a seção de próximas corridas, incluindo data, horário e local.
+- Exibir a pontuação atual do campeonato.
 
 ## Tecnologias Usadas
 
