@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:f1_app/drivers_page.dart';
-import 'package:flutter/material.dart';
 import 'team/team_card.dart';
 import 'team/team_data.dart';
+import 'team/team.dart';
 import 'info_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,20 +40,36 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Expanded(
-              child: ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemCount: teamData.teams.length,
-                itemBuilder: (context, index) {
-                  final team = teamData.teams[index];
-                  return TeamCard(
-                    teamId: team.teamId,
-                    teamName: team.teamName,
-                    fullTeamName: team.fullTeamName,
-                    teamLogo: team.teamLogo,
-                    teamColor: team.teamColor,
+              child: FutureBuilder<List<Team>>(
+                future: teamData.getTeams(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Erro ao carregar os times'));
+                  }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('Nenhum time encontrado'));
+                  }
+
+                  final teams = snapshot.data!;
+                  return ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: teams.length,
+                    itemBuilder: (context, index) {
+                      final team = teams[index];
+                      return TeamCard(
+                        teamId: team.teamId,
+                        teamName: team.teamName,
+                        fullTeamName: team.fullTeamName,
+                        teamLogo: team.teamLogo,
+                        teamColor: team.teamColor,
+                      );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(height: 10),
                   );
-                },
-                separatorBuilder: (context, index) => SizedBox(height: 10),
+                }
               ),
             ),
           ],

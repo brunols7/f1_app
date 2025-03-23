@@ -1,5 +1,5 @@
-import 'package:f1_app/drivers/driver_card.dart';
 import 'package:flutter/material.dart';
+import 'package:f1_app/drivers/driver_card.dart';
 import 'team/team_data.dart';
 import 'team/team.dart';
 import 'drivers/driver.dart';
@@ -7,8 +7,8 @@ import 'drivers/drivers_data.dart';
 import 'info_page.dart';
 
 class DriversPage extends StatefulWidget {
-
   final int teamId;
+
   const DriversPage({Key? key, required this.teamId}) : super(key: key);
 
   @override
@@ -18,24 +18,53 @@ class DriversPage extends StatefulWidget {
 class _DriversPageState extends State<DriversPage> {
   Team? selectedTeam;
   List<Driver> filteredDrivers = [];
+  final TeamData teamData = TeamData();
+  final DriversData driversData = DriversData();
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    selectedTeam = TeamData().teams.firstWhere(
-      (team) => team.teamId == widget.teamId,
-      orElse: () => Team(
-        teamId: -1,
-        teamName: 'Equipe não encontrada',
-        fullTeamName: 'Equipe não encontrada',
-        teamLogo: '',
-        teamColor: Colors.grey,
-      ),
-    );
-
-    filteredDrivers = DriversData().drivers.where((driver) => driver.teamId == widget.teamId).toList();
+    _loadData();
   }
-  
+
+  Future<void> _loadData() async {
+    try {
+      final teams = await teamData.getTeams();
+      setState(() {
+        selectedTeam = teams.firstWhere(
+          (team) => team.teamId == widget.teamId,
+          orElse: () => Team(
+            teamId: -1,
+            teamName: 'Equipe não encontrada',
+            fullTeamName: 'Equipe não encontrada',
+            teamLogo: '',
+            teamColor: Colors.grey,
+          ),
+        );
+      });
+
+      final drivers = await driversData.getDrivers();
+      setState(() {
+        filteredDrivers = drivers.where((driver) => driver.teamId == widget.teamId).toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        selectedTeam = Team(
+          teamId: -1,
+          teamName: 'Erro ao carregar',
+          fullTeamName: 'Erro ao carregar',
+          teamLogo: '',
+          teamColor: Colors.grey,
+        );
+        filteredDrivers = [];
+      });
+      print('Erro ao carregar dados: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,15 +73,15 @@ class _DriversPageState extends State<DriversPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, color: Color(0xFFFA1F00), size: 24),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFFFA1F00), size: 24),
         ),
         centerTitle: true,
         title: Image.asset('assets/images/f1-logo.png', height: 40),
         elevation: 0.5,
-        backgroundColor: Color(0xFFf8f4f0),
+        backgroundColor: const Color(0xFFf8f4f0),
         actions: [
           IconButton(
-            icon: Icon(Icons.info_outlined, color: Color(0xFFFA1F00), size: 24),
+            icon: const Icon(Icons.info_outlined, color: Color(0xFFFA1F00), size: 24),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage()));
             },
@@ -60,10 +89,10 @@ class _DriversPageState extends State<DriversPage> {
         ],
       ),
       body: Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Text(
+            const Text(
               'DRIVERS',
               style: TextStyle(
                 fontFamily: 'f1',
@@ -71,16 +100,20 @@ class _DriversPageState extends State<DriversPage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
-              child: ListView.separated(
-                itemCount: filteredDrivers.length,
-                itemBuilder: (context, index) {
-                  final driver = filteredDrivers[index];
-                  return DriverCard(driver: driver);
-                },
-                separatorBuilder: (context, index) => SizedBox(height: 10),
-              ),
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : filteredDrivers.isEmpty
+                      ? const Center(child: Text('Nenhum piloto encontrado'))
+                      : ListView.separated(
+                          itemCount: filteredDrivers.length,
+                          itemBuilder: (context, index) {
+                            final driver = filteredDrivers[index];
+                            return DriverCard(driver: driver);
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(height: 10),
+                        ),
             ),
           ],
         ),
