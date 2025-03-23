@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'team/team_data.dart';
-import 'home_page.dart';
+import 'teams_page.dart';
 import 'info_page.dart';
 
 
@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(teamData: teamData),
+        '/': (context) => TeamsPage(teamData: teamData),
         '/info': (context) => InfoPage(),
       },
       theme: ThemeData(

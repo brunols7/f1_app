@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'team/team_card.dart';
 import 'team/team_data.dart';
 import 'team/team.dart';
+import 'team/team_loading.dart';
 import 'info_page.dart';
 
-class HomePage extends StatelessWidget {
+class TeamsPage extends StatelessWidget {
   final TeamData teamData;
 
-  HomePage({required this.teamData});
+  TeamsPage({required this.teamData});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                 future: teamData.getTeams(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: TeamLoading());
                   }
                   if (snapshot.hasError) {
                     return const Center(child: Text('Erro ao carregar os times'));

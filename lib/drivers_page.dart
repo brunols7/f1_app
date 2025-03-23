@@ -4,6 +4,7 @@ import 'team/team_data.dart';
 import 'team/team.dart';
 import 'drivers/driver.dart';
 import 'drivers/drivers_data.dart';
+import 'drivers/driver_card_loading.dart';
 import 'info_page.dart';
 
 class DriversPage extends StatefulWidget {
@@ -103,7 +104,7 @@ class _DriversPageState extends State<DriversPage> {
             const SizedBox(height: 10),
             Expanded(
               child: isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: DriverCardLoading())
                   : filteredDrivers.isEmpty
                       ? const Center(child: Text('Nenhum piloto encontrado'))
                       : ListView.separated(
