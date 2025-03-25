@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class InfoPage extends StatelessWidget {
   InfoPage({super.key});
 
-  final String appVersion = '1.0.2';
+  final String appVersion = '1.0.3';
 
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
