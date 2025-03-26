@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver.dart';
+import '../models/driver.dart';
 
 class DriverCard extends StatefulWidget {
   

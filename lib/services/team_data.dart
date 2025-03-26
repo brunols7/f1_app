@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'team.dart';
+import '../models/team.dart';
 
 class TeamData {
   Future<List<Team>> getTeams() async {

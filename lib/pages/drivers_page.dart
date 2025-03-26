@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:f1_app/drivers/driver_card.dart';
-import 'team/team_data.dart';
-import 'team/team.dart';
-import 'drivers/driver.dart';
-import 'drivers/drivers_data.dart';
-import 'drivers/driver_card_loading.dart';
+import 'package:f1_app/widgets/driver_card.dart';
+import '../services/team_data.dart';
+import '../models/team.dart';
+import '../models/driver.dart';
+import '../services/drivers_data.dart';
+import '../widgets/driver_card_loading.dart';
 import 'info_page.dart';
 
 class DriversPage extends StatefulWidget {

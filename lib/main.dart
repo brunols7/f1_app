@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'team/team_data.dart';
-import 'teams_page.dart';
-import 'info_page.dart';
+import 'services/team_data.dart';
+import 'pages/teams_page.dart';
+import 'pages/info_page.dart';
 
 
 Future<void> main() async {

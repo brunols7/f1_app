@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'driver.dart';
+import '../models/driver.dart';
 
 class DriversData {
   Future<List<Driver>> getDrivers() async {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'team/team_card.dart';
-import 'team/team_data.dart';
-import 'team/team.dart';
-import 'team/team_loading.dart';
+import '../widgets/team_card.dart';
+import '../services/team_data.dart';
+import '../models/team.dart';
+import '../widgets/team_loading.dart';
 import 'info_page.dart';
 
 class TeamsPage extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import '../drivers_page.dart';
+import '../pages/drivers_page.dart';
 
 class TeamCard extends StatelessWidget {
   const TeamCard(
